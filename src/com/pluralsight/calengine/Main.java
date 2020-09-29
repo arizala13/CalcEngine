@@ -18,8 +18,6 @@ public class Main {
         else
             System.out.println("Please provide an operation code and 2 numeric values");
 
-        for( double currentResult : results)
-            System.out.println(currentResult);
     }
 
     private static void handleCommandLine(String[] args) {
