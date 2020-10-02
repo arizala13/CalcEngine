@@ -6,32 +6,23 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
+        performCalculations();
+    }
 
-        double[] leftVals = {100.0d, 25.0d, 225.0d, 11.0d};
-        double[] rightVals = {50.0d, 92.0d, 17.0d, 3.0d};
-        char[] opCodes = {'d', 'a', 's', 'm'};
-        double[] results = new double[opCodes.length];
-
-        // 4 references of type MathEquation
+    static void performCalculations() {
         MathEquation[] equations = new MathEquation[4];
-        equations[0] = create(100.0d, 50.0d,'d');
-        equations[0] = create(25.0d, 92.0d,'a');
-        equations[0] = create(225.0d, 17.0d,'s');
-        equations[0] = create(11.0d, 3.0d,'m');
+        equations[0] = create(100.0d, 50.0d, 'd');
+        equations[1] = create(25.0d, 92.0d, 'a');
+        equations[2] = create(225.0d, 17.0d, 's');
+        equations[3] = create(11.0d, 3.0d, 'm');
 
-        if(args.length == 0) {
-            for (int i = 0; i < opCodes.length; i++) {
-                results[i] = execute(opCodes[i], leftVals[i], rightVals[i]);
-            }
-        } else if(args.length == 1 && args[0].equals("interactive")){
-            executeInteractively();
-        } else if(args.length == 3){
-            handleCommandLine(args);
+        for (MathEquation equation : equations) {
+            equation.execute();
+            System.out.println("result = " + equation.getResult());
         }
-        else
-            System.out.println("Please provide an operation code and 2 numeric values");
 
     }
+
 
     private static MathEquation create(double leftVal, double rightVal, char opCode) {
         MathEquation equation = new MathEquation();
@@ -56,13 +47,13 @@ public class Main {
     // This allows to get the input from user and correctly categorize
     private static void performOperation(String[] parts) {
         char opCode = opCodeFromString(parts[0]);
-        if(opCode == 'w')
+        if (opCode == 'w')
             handleWhen(parts);
         else {
             double leftVal = valueFromWord(parts[1]);
             double rightVal = valueFromWord(parts[2]);
-            double result = execute(opCode, leftVal, rightVal);
-            displayResult(opCode, leftVal, rightVal, result);
+//            double result = execute(opCode, leftVal, rightVal);
+//            displayResult(opCode, leftVal, rightVal, result);
         }
     }
 
@@ -87,8 +78,8 @@ public class Main {
         char[] opCodes = {'a', 's', 'm', 'd'};
         char[] symbols = {'+', '-', '*', '/'};
         char symbol = ' ';
-        for(int index = 0; index < opCodes.length; index++) {
-            if(opCode == opCodes[index]) {
+        for (int index = 0; index < opCodes.length; index++) {
+            if (opCode == opCodes[index]) {
                 symbol = symbols[index];
                 break;
             }
@@ -101,31 +92,8 @@ public class Main {
         char opCode = args[0].charAt(0);
         double leftVal = Double.parseDouble(args[1]);
         double rightVal = Double.parseDouble(args[2]);
-        double result = execute(opCode,leftVal, rightVal);
-        System.out.println(result);
-    }
-
-    static double execute(char opCode, double leftVal, double rightVal){
-        double result;
-        switch (opCode) {
-            case 'a':
-                result = leftVal + rightVal;
-                break;
-            case 's':
-                result = leftVal - rightVal;
-                break;
-            case 'm':
-                result = leftVal * rightVal;
-                break;
-            case 'd':
-                result = rightVal != 0 ? leftVal / rightVal : 0.0d;
-                break;
-            default:
-                System.out.println("Invalid opCode " + opCode);
-                result = 0.0d;
-                break;
-        }
-        return result;
+//        double result = execute(opCode, leftVal, rightVal);
+//        System.out.println(result);
     }
 
     static char opCodeFromString(String operationName) {
@@ -139,13 +107,13 @@ public class Main {
                 "five", "six", "seven", "eight", "nine"
         };
         double value = -1d;
-        for(int index = 0; index < numberWords.length; index++) {
-            if(word.equals(numberWords[index])) {
+        for (int index = 0; index < numberWords.length; index++) {
+            if (word.equals(numberWords[index])) {
                 value = index;
                 break;
             }
         }
-        if(value == -1d)
+        if (value == -1d)
             value = Double.parseDouble(word);
 
         return value;
