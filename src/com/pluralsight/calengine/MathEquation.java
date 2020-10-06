@@ -6,6 +6,15 @@ public class MathEquation {
     private char opCode;
     private double result;
 
+    // Allows average to be determined
+    private static int numberOfCalculations;
+    private static double sumOfResults;
+
+    /* Above being static means there is only one copy
+       for the whole class, does not matter how many instances of
+       we create
+     */
+
     // default constructor
     public MathEquation() {}
 
@@ -38,7 +47,14 @@ public class MathEquation {
                 result = 0.0d;
                 break;
         }
+        numberOfCalculations++;
+        sumOfResults += result;
     }
+
+    public static double getAverageResult() {
+        return sumOfResults / numberOfCalculations;
+    }
+
     public double getResult() {
         return result;
     }
