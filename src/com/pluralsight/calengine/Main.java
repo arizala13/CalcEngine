@@ -33,6 +33,13 @@ public class Main {
 
         equationOverload.execute(leftDouble, rightDouble);
         System.out.println("Overloaded result with doubles: " + equationOverload.getResult());
+
+        // Java auto widens int to double value - It works!
+        double leftInt = 90;
+        double rightInt = 4;
+
+        equationOverload.execute(leftInt, rightInt);
+        System.out.println("Overloaded result with doubles: " + equationOverload.getResult());
     }
 
 

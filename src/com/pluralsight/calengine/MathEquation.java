@@ -51,8 +51,18 @@ public class MathEquation {
         sumOfResults += result;
     }
 
-    // allows passing in directly -- overloading that accepts two values
+    // pass values that are ints not doubles
     public void execute(double leftVal, double rightVal) {
+        this.leftVal = leftVal;
+        this.rightVal = rightVal;
+
+        execute();
+
+        // casted to int for correct answer
+        result = (int)result;
+    }
+
+    public void execute(int leftVal, int rightVal) {
         this.leftVal = leftVal;
         this.rightVal = rightVal;
 
