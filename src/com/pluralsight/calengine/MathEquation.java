@@ -51,6 +51,14 @@ public class MathEquation {
         sumOfResults += result;
     }
 
+    // allows passing in directly -- overloading that accepts two values
+    public void execute(double leftVal, double rightVal) {
+        this.leftVal = leftVal;
+        this.rightVal = rightVal;
+
+        execute();
+    }
+
     public static double getAverageResult() {
         return sumOfResults / numberOfCalculations;
     }
