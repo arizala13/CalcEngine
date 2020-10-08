@@ -6,7 +6,22 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        performCalculations();
+//        performCalculations();
+
+        Divider divider = new Divider();
+        doCalculation(divider, 100.0d, 50.0d);
+
+        Adder adder = new Adder();
+        doCalculation(adder, 25.0d, 92.0d);
+
+    }
+
+    static void doCalculation(CalculateBase calculation, double leftVal, double rightVal) {
+        calculation.setLeftVal(leftVal);
+        calculation.setRightVal(rightVal);
+        calculation.calculate();
+        System.out.println("Calculation result = " + calculation.getResult());
+
     }
 
     static void performCalculations() {
