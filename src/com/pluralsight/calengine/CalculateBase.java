@@ -5,6 +5,13 @@ public abstract class CalculateBase {
     private double rightVal;
     private double result;
 
+    public CalculateBase() {}
+
+    public CalculateBase(double leftVal, double rightVal) {
+        this.leftVal = leftVal;
+        this.rightVal = rightVal;
+    }
+
     public double getLeftVal(){
         return leftVal;
     }
@@ -29,5 +36,6 @@ public abstract class CalculateBase {
         this.result = result;
     }
 
+    // use abstract because no one will use this!
     public abstract void calculate();
 }
