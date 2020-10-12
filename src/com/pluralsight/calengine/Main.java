@@ -8,14 +8,40 @@ public class Main {
     public static void main(String[] args) {
 //        performCalculations();
 
-        Divider divider = new Divider();
-        doCalculation(divider, 100.0d, 50.0d);
-
-        Adder adder = new Adder();
-        doCalculation(adder, 25.0d, 92.0d);
+//        Divider divider = new Divider();
+//        doCalculation(divider, 100.0d, 50.0d);
+//
+//        Adder adder = new Adder();
+//        doCalculation(adder, 25.0d, 92.0d);
         
-        performMoreCalculations();
+//        performMoreCalculations();
+//
+        executeInteractively();
 
+    }
+
+    private static CalculateBase createCalculation(MathOperation operation, double leftVal, double rightVal) {
+        // create different types
+        CalculateBase calculation = null;
+
+        // since enum we can use switch case
+        switch(operation){
+            // when we see ADD we do ADD, same for other operations
+            case ADD:
+                calculation = new Adder(leftVal, rightVal);
+                break;
+            case SUBTRACT:
+                calculation = new Subtracter(leftVal, rightVal);
+                break;
+            case MULTIPLY:
+                calculation = new Multiplier(leftVal, rightVal);
+                break;
+            case DIVIDE:
+                calculation = new Divider(leftVal, rightVal);
+                break;
+        }
+
+        return calculation;
     }
 
     private static void performMoreCalculations() {
@@ -92,15 +118,18 @@ public class Main {
 
     // This allows to get the input from user and correctly categorize
     private static void performOperation(String[] parts) {
-        char opCode = opCodeFromString(parts[0]);
-        if (opCode == 'w')
-            handleWhen(parts);
-        else {
-            double leftVal = valueFromWord(parts[1]);
-            double rightVal = valueFromWord(parts[2]);
-//            double result = execute(opCode, leftVal, rightVal);
-//            displayResult(opCode, leftVal, rightVal, result);
-        }
+        // toUpper used to make checking work correctly ADD = ADD
+        MathOperation operation = MathOperation.valueOf(parts[0].toUpperCase());
+
+        // translate string to double
+        double leftVal = Double.parseDouble((parts[1]));
+        double rightVal = Double.parseDouble((parts[2]));
+        CalculateBase calculation =  createCalculation(operation, leftVal, rightVal);
+
+        calculation.calculate();
+
+        System.out.println("Operation performed: " + operation);
+        System.out.println(calculation.getResult());
     }
 
     // allows days to adding to a date
